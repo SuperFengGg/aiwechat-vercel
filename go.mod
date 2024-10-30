@@ -5,7 +5,7 @@ go 1.21
 require (
 	github.com/bytedance/sonic v1.11.2
 	github.com/go-redis/redis/v8 v8.11.5
-	github.com/google/generative-ai-go v0.8.0
+	github.com/google/generative-ai-go v0.18.0
 	github.com/gorilla/websocket v1.5.1
 	github.com/joho/godotenv v1.5.1
 	github.com/sashabaranov/go-openai v1.20.2
