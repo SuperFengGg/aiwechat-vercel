@@ -13,6 +13,7 @@ const (
 	Wx_Help_Reply_key      = "WX_HELP_REPLY"
 
 	Wx_Event_Key_Chat_Gpt_key   = "AI_CHAT_GPT"
+	Wx_Event_Key_Chat_Grok_key   = "AI_CHAT_GROK"
 	Wx_Event_Key_Chat_Spark_key = "AI_CHAT_SPARK"
 	Wx_Event_Key_Chat_Qwen_key  = "AI_CHAT_QWEN"
 
@@ -65,6 +66,9 @@ func GetWxHelpReply() string {
 }
 func GetWxEventKeyChatGpt() string {
 	return os.Getenv(Wx_Event_Key_Chat_Gpt_key)
+}
+func GetWxEventKeyChatGrok() string {
+	return os.Getenv(Wx_Event_Key_Chat_Grok_key)
 }
 func GetWxEventKeyChatSpark() string {
 	return os.Getenv(Wx_Event_Key_Chat_Spark_key)
