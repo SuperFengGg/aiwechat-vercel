@@ -15,6 +15,6 @@ func GetGrokWelcomeReply() (r string) {
 	return
 }
 
-func GetroktToken() string {
+func GetGroktToken() string {
 	return os.Getenv(Grok_Token)
 }
