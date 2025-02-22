@@ -108,7 +108,7 @@ func CheckGrokConfig() error {
 	if token == "" {
 		return errors.New("请配置微信TOKEN")
 	}
-	if gptToken == "" && botType == Bot_Type_Grok {
+	if grokToken == "" && botType == Bot_Type_Grok {
 		return errors.New("请配置GROKToken")
 	}
 	return nil
