@@ -27,11 +27,11 @@ const (
 var (
 	Cache sync.Map
 
-	Support_Bots = []string{Bot_Type_Gpt, Bot_Type_Spark, Bot_Type_Qwen, Bot_Type_Gemini}
+	Support_Bots = []string{Bot_Type_Gpt, Bot_Type_Spark, Bot_Type_Qwen, Bot_Type_Gemini,Bot_Type_Grok}
 )
 
 func IsSupportPrompt(botType string) bool {
-	return botType == Bot_Type_Gpt || botType == Bot_Type_Qwen || botType == Bot_Type_Spark
+	return botType == Bot_Type_Gpt || botType == Bot_Type_Qwen || botType == Bot_Type_Spark || botType == Bot_Type_Grok
 }
 
 func CheckBotConfig(botType string) (actualotType string, err error) {
