@@ -18,6 +18,7 @@ const (
 
 	Wx_Command_Help      = "/help"
 	Wx_Command_Gpt       = "/gpt"
+	Wx_Command_Grok      = "/grok"
 	Wx_Command_Spark     = "/spark"
 	Wx_Command_Qwen      = "/qwen"
 	Wx_Command_Gemini    = "/gemini"
@@ -36,7 +37,7 @@ const (
 )
 
 var (
-	Wx_Commands = []string{Wx_Command_Help, Wx_Command_Gpt, Wx_Command_Spark, Wx_Command_Qwen, Wx_Command_Gemini}
+	Wx_Commands = []string{Wx_Command_Help, Wx_Command_Gpt,Wx_Command_Grok, Wx_Command_Spark, Wx_Command_Qwen, Wx_Command_Gemini}
 )
 
 func GetWxToken() string {
@@ -76,6 +77,8 @@ func GetBotWelcomeReply(botType string) string {
 	switch botType {
 	case Bot_Type_Gpt:
 		return GetGptWelcomeReply()
+	case Bot_Type_Grok:
+		return GetGrokWelcomeReply()	
 	case Bot_Type_Gemini:
 		return GetGeminiWelcomeReply()
 	case Bot_Type_Spark:
