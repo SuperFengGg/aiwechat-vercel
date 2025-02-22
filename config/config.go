@@ -21,6 +21,7 @@ const (
 	Bot_Type_Spark  = "spark"
 	Bot_Type_Qwen   = "qwen"
 	Bot_Type_Gemini = "gemini"
+	Bot_Type_Grok   = "grok"
 )
 
 var (
@@ -47,6 +48,8 @@ func CheckBotConfig(botType string) (actualotType string, err error) {
 		_, err = GetQwenConfig()
 	case Bot_Type_Gemini:
 		err = CheckGeminiConfig()
+	case Bot_Type_Grok:
+		err = CheckGrokConfig()	
 	}
 	return
 }
@@ -59,6 +62,7 @@ func CheckAllBotConfig() (botType string, checkRes map[string]bool) {
 		Bot_Type_Spark:  true,
 		Bot_Type_Qwen:   true,
 		Bot_Type_Gemini: true,
+		Bot_Type_Grok:   true,
 	}
 
 	err := CheckGptConfig()
@@ -73,9 +77,13 @@ func CheckAllBotConfig() (botType string, checkRes map[string]bool) {
 	if err != nil {
 		checkRes[Bot_Type_Qwen] = false
 	}
-	err = CheckGeminiConfig()
+	_, err = CheckGeminiConfig()
 	if err != nil {
 		checkRes[Bot_Type_Gemini] = false
+	}
+	 err = CheckGrokConfig()
+	if err != nil {
+		checkRes[Bot_Type_Grok] = false
 	}
 	return
 }
