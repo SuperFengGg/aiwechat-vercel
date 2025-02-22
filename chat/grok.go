@@ -10,28 +10,28 @@ import (
 	"github.com/sashabaranov/go-openai"
 )
 
-type SimpleGptChat struct {
+type SimpleGrokChat struct {
 	token     string
 	url       string
 	maxTokens int
 	BaseChat
 }
 
-func (s *SimpleGptChat) toDbMsg(msg openai.ChatCompletionMessage) db.Msg {
+func (s *SimpleGrokChat) toDbMsg(msg openai.ChatCompletionMessage) db.Msg {
 	return db.Msg{
 		Role: msg.Role,
 		Msg:  msg.Content,
 	}
 }
 
-func (s *SimpleGptChat) toChatMsg(msg db.Msg) openai.ChatCompletionMessage {
+func (s *SimpleGrokChat) toChatMsg(msg db.Msg) openai.ChatCompletionMessage {
 	return openai.ChatCompletionMessage{
 		Role:    msg.Role,
 		Content: msg.Msg,
 	}
 }
 
-func (s *SimpleGptChat) getModel(userID string) string {
+func (s *SimpleGrokChat) getModel(userID string) string {
 	if model, err := db.GetModel(userID, config.Bot_Type_Grok); err == nil && model != "" {
 		return model
 	} else if model = os.Getenv("grokModel"); model != "" {
@@ -40,12 +40,12 @@ func (s *SimpleGptChat) getModel(userID string) string {
 	return "grok-2-latest"
 }
 
-func (s *SimpleGptChat) chat(userID, msg string) string {
+func (s *SimpleGrokChat) chat(userID, msg string) string {
 	cfg := openai.DefaultConfig(s.token)
 	cfg.BaseURL = s.url
 	client := openai.NewClientWithConfig(cfg)
 
-	var msgs = GetMsgListWithDb(config.Bot_Type_Gpt, userID, openai.ChatCompletionMessage{Role: openai.ChatMessageRoleUser, Content: msg}, s.toDbMsg, s.toChatMsg)
+	var msgs = GetMsgListWithDb(config.Bot_Type_Grok, userID, openai.ChatCompletionMessage{Role: openai.ChatMessageRoleUser, Content: msg}, s.toDbMsg, s.toChatMsg)
 	req := openai.ChatCompletionRequest{
 		Model:    s.getModel(userID),
 		Messages: msgs,
@@ -64,7 +64,7 @@ func (s *SimpleGptChat) chat(userID, msg string) string {
 	return content
 }
 
-func (s *SimpleGptChat) Chat(userID string, msg string) string {
+func (s *SimpleGrokChat) Chat(userID string, msg string) string {
 	r, flag := DoAction(userID, msg)
 	if flag {
 		return r
