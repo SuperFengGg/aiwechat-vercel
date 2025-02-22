@@ -25,6 +25,9 @@ var actionMap = map[string]func(param, userId string) string{
 	config.Wx_Command_Gpt: func(param, userId string) string {
 		return SwitchUserBot(userId, config.Bot_Type_Gpt)
 	},
+	config.Wx_Command_Grok: func(param, userId string) string {
+		return SwitchUserBot(userId, config.Bot_Type_Grok)
+	},
 	config.Wx_Command_Spark: func(param, userId string) string {
 		return SwitchUserBot(userId, config.Bot_Type_Spark)
 	},
@@ -94,6 +97,8 @@ func (s SimpleChat) HandleMediaMsg(msg *message.MixMessage) string {
 			switch msg.EventKey {
 			case config.GetWxEventKeyChatGpt():
 				return SwitchUserBot(string(msg.FromUserName), config.Bot_Type_Gpt)
+			case config.GetWxEventKeyChatGrok():
+				return SwitchUserBot(string(msg.FromUserName), config.Bot_Type_Grok)	
 			case config.GetWxEventKeyChatSpark():
 				return SwitchUserBot(string(msg.FromUserName), config.Bot_Type_Spark)
 			case config.GetWxEventKeyChatQwen():
@@ -122,6 +127,8 @@ func SetPrompt(param, userId string) string {
 	switch botType {
 	case config.Bot_Type_Gpt:
 		db.SetPrompt(userId, botType, param)
+	case config.Bot_Type_Grok:
+		db.SetPrompt(userId, botType, param)	
 	case config.Bot_Type_Qwen:
 		db.SetPrompt(userId, botType, param)
 	case config.Bot_Type_Spark:
@@ -267,6 +274,17 @@ func GetChatBot(botType string) BaseChat {
 			maxTokens: maxTokens,
 			BaseChat:  SimpleChat{},
 		}
+	case config.Bot_Type_Grok:
+		url := os.Getenv("GROK_URL")
+		if url == "" {
+			url = "https://api.x.ai/v1/chat/completions"
+		}
+		return &SimpleGrokChat{
+			token:     config.GetGrokToken(),
+			url:       url,
+			maxTokens: maxTokens,
+			BaseChat:  SimpleChat{},
+		}	
 	case config.Bot_Type_Gemini:
 		return &GeminiChat{
 			BaseChat:  SimpleChat{},
