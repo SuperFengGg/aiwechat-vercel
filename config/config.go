@@ -47,7 +47,7 @@ func CheckBotConfig(botType string) (actualotType string, err error) {
 	case Bot_Type_Qwen:
 		_, err = GetQwenConfig()
 	case Bot_Type_Gemini:
-		_, err = CheckGeminiConfig()
+		 err = CheckGeminiConfig()
 	case Bot_Type_Grok:
 		err = CheckGrokConfig()	
 	}
@@ -77,7 +77,7 @@ func CheckAllBotConfig() (botType string, checkRes map[string]bool) {
 	if err != nil {
 		checkRes[Bot_Type_Qwen] = false
 	}
-	_, err = CheckGeminiConfig()
+	err = CheckGeminiConfig()
 	if err != nil {
 		checkRes[Bot_Type_Gemini] = false
 	}
