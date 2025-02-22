@@ -47,7 +47,7 @@ func CheckBotConfig(botType string) (actualotType string, err error) {
 	case Bot_Type_Qwen:
 		_, err = GetQwenConfig()
 	case Bot_Type_Gemini:
-		err = CheckGeminiConfig()
+		_, err = CheckGeminiConfig()
 	case Bot_Type_Grok:
 		err = CheckGrokConfig()	
 	}
@@ -97,6 +97,19 @@ func CheckGptConfig() error {
 	}
 	if gptToken == "" && botType == Bot_Type_Gpt {
 		return errors.New("请配置ChatGPTToken")
+	}
+	return nil
+}
+
+func CheckGrokConfig() error {
+	grokToken := GetGrokToken()
+	token := GetWxToken()
+	botType := GetBotType()
+	if token == "" {
+		return errors.New("请配置微信TOKEN")
+	}
+	if gptToken == "" && botType == Bot_Type_Grok {
+		return errors.New("请配置GROKToken")
 	}
 	return nil
 }
