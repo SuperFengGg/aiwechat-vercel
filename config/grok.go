@@ -3,18 +3,18 @@ package config
 import "os"
 
 const (
-	Gpt_Welcome_Reply_Key = "gptWelcomeReply"
-	Gpt_Token             = "GROK_TOKEN"
+	Grok_Welcome_Reply_Key = "gptWelcomeReply"
+	Grok_Token             = "GROK_TOKEN"
 )
 
-func GetGptWelcomeReply() (r string) {
-	r = os.Getenv(Gpt_Welcome_Reply_Key)
+func GetGrokWelcomeReply() (r string) {
+	r = os.Getenv(Grok_Welcome_Reply_Key)
 	if r == "" {
 		r = "我是grok，开始聊天吧！"
 	}
 	return
 }
 
-func GetGptToken() string {
-	return os.Getenv(Gpt_Token)
+func GetroktToken() string {
+	return os.Getenv(Grok_Token)
 }
